@@ -1,7 +1,8 @@
 ﻿#pragma once
-#include<string>
+#include <string>
 #include "Detail.h"
 #include "Baseboard.h"
+#include <vector>
 
 class CuttingAlgorithm
 {
@@ -14,8 +15,7 @@ public:
 		int& refuse);
 
 	int SimpleCutting(
-		Detail& detailTypeOne, 
-		Detail& detailTypeTwo,
+		std::vector<Detail>& details,
 		Baseboard& baseboard,
 		int& refuse);
 	

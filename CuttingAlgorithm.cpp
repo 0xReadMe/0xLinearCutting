@@ -10,9 +10,9 @@ void CuttingAlgorithm::GreedyCutting(
 	int totalLength = 0;
 	while (dCount != 0)
 	{
-		while (totalLength + dLength < 3000 && dCount != 0)
+		while (totalLength + dLength <= 3000 && dCount != 0)
 		{
-			--dCount;
+			dCount--;
 			totalLength += dLength;
 		}
 		baseboard.SetCount(baseboard.GetCount() + 1);
@@ -22,21 +22,22 @@ void CuttingAlgorithm::GreedyCutting(
 }
 
 int CuttingAlgorithm::SimpleCutting(
-	Detail& dTypeOne, 
-	Detail& dTypeTwo, 
+	std::vector<Detail>& details,
 	Baseboard& baseboard,
 	int& refuse)
 {
-	int	allLengthTypeOne{};
-	int	allLengthTypeTwo{};
+	int	detailLength	{};
 	int	allLength		{};
 	int	countBaseboard	{};
 
-	allLengthTypeOne = dTypeOne.GetCount() * dTypeOne.GetLength();	// вычисляем общую длину всех первых деталей
-	allLengthTypeTwo = dTypeTwo.GetCount() * dTypeTwo.GetLength();	// вычисляем общую длину всех вторых деталей
-	allLength = allLengthTypeTwo + allLengthTypeOne;				// общая длина
+	for (auto& detail : details) 
+	{
+		detailLength = detail.GetCount() * detail.GetLength();
+		allLength += detailLength;									// общая длина
+	}
 
 	countBaseboard = allLength / baseboard.GetLength();				// количество плинтусов
+
 	refuse = baseboard.GetLength() - (allLength -					// подсчет итогового отхода
 			(countBaseboard * baseboard.GetLength()));				
 	
